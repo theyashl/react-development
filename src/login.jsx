@@ -1,5 +1,6 @@
+import { useDispatch } from 'react-redux';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
-import { setShowLoginPage } from './App'
+import { loginFailed, loginSuccess } from './redux/login/actions';
 /*
  * bring state as prop and set it here
  * like prop = setstate(...) blah blah blah
@@ -7,6 +8,7 @@ import { setShowLoginPage } from './App'
 
 const Login = (props) => {
     const { setShowLoginPage } = props
+    const dispatch = useDispatch();
 
     async function postData(url = '', data = {}) {
         const response = await fetch(url, {
@@ -32,12 +34,22 @@ const Login = (props) => {
         var { email, password } = document.forms[0];
 
         // Find user login info
-        const userData = postData("https://reqres.in/api/login", {
+        postData("https://reqres.in/api/login", {
             "email": email.value,
             "password": password.value
+        }).then((data) => {
+            console.log(data)
+            if (data.token) {
+                localStorage.setItem('loggedIn', true);
+                localStorage.setItem('username', email);
+                localStorage.setItem('password', password);
+                dispatch(loginSuccess(document.forms[0]));
+            }
+            else {
+                dispatch(loginFailed());
+            }
         });
-        console.log(userData);
-        userData.then(
+        /*userData.then(
             setShowLoginPage(false)
         )
 
@@ -51,12 +63,12 @@ const Login = (props) => {
                 setErrorMessages({ name: "pass", message: errors.pass });
             } else {
                 setIsSubmitted(true);
-            }*/
+            }*\
         } else {
             // Username not found
             console.log("Umnn uhh");
             //setErrorMessages({ name: "uname", message: errors.uname });
-        }
+        }*/
     };
 
     return (

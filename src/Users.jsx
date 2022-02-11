@@ -1,38 +1,43 @@
 import { useEffect, useState } from "react"
 import ProjectCard from './card'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import {userDataInitiate, userDataSuccess, userDataFailure, userDataReset} from "./redux/users/actions"
 
 
 const Users = () => {
-    let [userData, setUserData] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-        fetch("https://reqres.in/api/users", requestOptions)
+        console.log("using effect");
+        dispatch(userDataInitiate());
+        fetch("https://jsonplaceholder.typicode.com/users")
             .then((response) => response.json())
-            .then((data) => setUserData(data.data))
-            .catch((err) => console.log(err))
+            .then((data) => dispatch(userDataSuccess(data)))
+            .catch((err) => dispatch(userDataFailure(err)));
     }, [])
 
     const navigateToUserDetails = (userId) => {
         navigate(`/details/${userId}`)
     }
+    const userData = useSelector((state) => {
+        return state.user.userData
+    });
+    if (useSelector((state) => state.user.loader)) {
+        return <p>Loading...</p>
+    }
     return (
         <div>
             {
+
                 userData.map((project) => (
-                    
-                        <div onClick={() => navigateToUserDetails(project.id)}>
-                            <ProjectCard
-                                img_url={project.avatar}
-                                name={project.first_name}
-                                description={project.email}
-                                img_alt_text={project.last_name}
+
+                    <div onClick={() => navigateToUserDetails(project.id)} key={ project.id }>
+                        <ProjectCard
+                            key={ project.id }
+                            img_url="http://assets.stickpng.com/images/585e4bcdcb11b227491c3396.png"
+                                name={project.name}
+                                email={project.email}
                             />
                         </div>
                     
