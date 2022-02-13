@@ -103,6 +103,9 @@ const Login = (props) => {
                 </Button>
                 <button type="button" onClick={() => setShowLoginPage(false)}>Toggle</button>
             </Form>
+            <hr />
+            <p>email: eve.holt@reqres.in </p>
+            <p>password: cityslicka</p>
         </>
         )
 }

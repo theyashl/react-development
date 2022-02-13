@@ -14,7 +14,7 @@ const ProjectCard = (props) => {
     const { img_url, name, email, img_alt_text } = props
     return (
         <>
-        <Card>
+            <Card>
         <CardImg
                     alt={img_alt_text}
                     src={img_url}

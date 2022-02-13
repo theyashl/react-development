@@ -3,6 +3,9 @@ import './App.css';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import UserDetails from './UserDetails';
 import Home from './Home'
+import Users from './Users';
+import Blogs from './Blogs';
+import BlogDetails from './BlogDetails';
 
 function App() {
     //let projects = undefined;
@@ -12,7 +15,10 @@ function App() {
             <div>
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/details/:userId' element={<UserDetails />} />
+                    <Route path='/users' element={<Users />} />
+                    <Route path='users/details/:userId' element={<UserDetails />} />
+                    <Route path='/blogs' element={<Blogs />} />
+                    <Route path='/blogs/:blogId' element={<BlogDetails />} />
                 </Routes>
             </div>
         </>

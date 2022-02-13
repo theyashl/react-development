@@ -3,8 +3,10 @@
     "",
     "\\src",
     "\\src\\redux",
+    "\\src\\redux\\blog",
+    "\\src\\redux\\login",
     "\\src\\redux\\users"
   ],
-  "SelectedNode": "\\src\\redux\\users\\actions.js",
+  "SelectedNode": "\\src\\redux\\blog\\blogReducer.js",
   "PreviewInSolutionExplorer": false
 }

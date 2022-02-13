@@ -18,7 +18,7 @@ const Users = () => {
     }, [])
 
     const navigateToUserDetails = (userId) => {
-        navigate(`/details/${userId}`)
+        navigate(`/users/details/${userId}`)
     }
     const userData = useSelector((state) => {
         return state.user.userData
